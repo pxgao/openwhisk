@@ -123,6 +123,7 @@ invoker:
   serializeDockerOp: true
   serializeDockerPull: true
   useRunc: false
+  useReactivePool: "{{ invoker_use_reactive_pool | default(false) }}"
 
 nginx:
   version: 1.11
@@ -150,7 +151,7 @@ db:
   - whisk.system
   whisk:
     actions: "{{ db_prefix }}whisks"
-    activations: "{% if db_split_actions_and_activations %}{{ db_prefix }}activations{% else %}{{ db_prefix }}whisks{% endif %}"
+    activations: "{{ db_prefix }}activations"
     auth: "{{ db_prefix }}subjects"
 
 apigateway:
@@ -158,6 +159,7 @@ apigateway:
     api: 9000
     api_secure: 443
     mgmt: 9001
+  version: 0.7.0
 
 redis:
   version: 3.2
@@ -214,7 +216,7 @@ catalog_auth_key: "{{ openwhisk_home }}/ansible/files/auth.whisk.system"
 #
 catalog_repos:
   openwhisk-catalog:
-    url: https://github.com/openwhisk/openwhisk-catalog.git
+    url: https://github.com/apache/incubator-openwhisk-catalog.git
     # Set the local location as the same level as openwhisk home, but it can be changed.
     location: "{{ openwhisk_home }}/../openwhisk-catalog"
     version: "HEAD"

@@ -1,14 +1,14 @@
 # OpenWhisk
 
-[![Build Status](https://travis-ci.org/openwhisk/openwhisk.svg?branch=master)](https://travis-ci.org/openwhisk/openwhisk)
+[![Build Status](https://travis-ci.org/apache/incubator-openwhisk.svg?branch=master)](https://travis-ci.org/apache/incubator-openwhisk)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 [![Join Slack](https://img.shields.io/badge/join-slack-9B69A0.svg)](http://slack.openwhisk.org/)
 
 OpenWhisk is a cloud-first distributed event-based programming service. It provides a programming model to upload event handlers to a cloud service, and register the handlers to respond to various events. Learn more at http://openwhisk.org or try it on [IBM Bluemix](https://ibm.biz/openwhisk).
 
 
-* [Quick Start](#quick-start)
-* [Other Configurations](#custom-configurations)
+* [Quick Start](#quick-start) (Vagrant)
+* [Native development](#native-development) (Mac and Ubuntu)
 * [Learn concepts and commands](#learn-concepts-and-commands)
 * [License](#license)
 * [Issues](#issues)
@@ -16,12 +16,12 @@ OpenWhisk is a cloud-first distributed event-based programming service. It provi
 ### Quick Start
 
 A [Vagrant](http://vagrantup.com) machine is the easiest way to run OpenWhisk on Mac, Windows PC or GNU/Linux.
-Download and install [Vagrant](https://www.vagrantup.com/downloads.html) for your operating system and architecture.
+Download and install [VirtualBox](https://www.virtualbox.org/wiki/Downloads) and [Vagrant](https://www.vagrantup.com/downloads.html) for your operating system and architecture.
 
 Follow these step to run your first OpenWhisk Action:
 ```
 # Clone openwhisk
-git clone --depth=1 https://github.com/openwhisk/openwhisk.git
+git clone --depth=1 https://github.com/apache/incubator-openwhisk.git openwhisk
 
 # Change directory to tools/vagrant
 cd openwhisk/tools/vagrant

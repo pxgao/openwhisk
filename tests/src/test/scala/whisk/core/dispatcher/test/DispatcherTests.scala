@@ -64,7 +64,7 @@ class DispatcherTests
         val content = JsObject("payload" -> JsNumber(count))
         val user = WhiskAuth(Subject(), AuthKey()).toIdentity
         val path = FullyQualifiedEntityName(EntityPath("test"), EntityName(s"count-$count"), Some(SemVer()))
-        val msg = Message(TransactionId.testing, path, DocRevision(), user, ActivationId(), EntityPath(user.subject.asString), Some(content))
+        val msg = Message(TransactionId.testing, path, DocRevision.empty, user, ActivationId(), EntityPath(user.subject.asString), Some(content))
         connector.send(msg)
     }
 
@@ -147,7 +147,7 @@ class DispatcherTests
             // that dispatcher refilled the pipeline
             stream.reset()
             Console.withOut(stream) {
-                dispatcher.activationFeed ! ActivationFeed.ContainerReleased(transid)
+                dispatcher.activationFeed ! ActivationFeed.ContainerReleased
                 // wait until additional message is drained
                 retry({
                     withClue("additional messages processed") {

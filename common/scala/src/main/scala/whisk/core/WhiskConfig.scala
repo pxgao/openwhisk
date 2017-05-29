@@ -71,11 +71,13 @@ class WhiskConfig(
 
     val invokerContainerNetwork = this(WhiskConfig.invokerContainerNetwork)
     val invokerContainerPolicy = if (this(WhiskConfig.invokerContainerPolicy) == "") None else Some(this(WhiskConfig.invokerContainerPolicy))
+    val invokerContainerDns = if (this(WhiskConfig.invokerContainerDns) == "") Seq() else this(WhiskConfig.invokerContainerDns).split(" ").toSeq
     val invokerNumCore = this(WhiskConfig.invokerNumCore)
     val invokerCoreShare = this(WhiskConfig.invokerCoreShare)
     val invokerSerializeDockerOp = this(WhiskConfig.invokerSerializeDockerOp)
     val invokerSerializeDockerPull = this(WhiskConfig.invokerSerializeDockerPull)
     val invokerUseRunc = this(WhiskConfig.invokerUseRunc)
+    val invokerUseReactivePool = this(WhiskConfig.invokerUseReactivePool)
 
     val wskApiHost = this(WhiskConfig.wskApiProtocol) + "://" + this(WhiskConfig.wskApiHostname) + ":" + this(WhiskConfig.wskApiPort)
     val controllerHost = this(WhiskConfig.controllerHostName) + ":" + this(WhiskConfig.controllerHostPort)
@@ -227,11 +229,13 @@ object WhiskConfig {
 
     val invokerContainerNetwork = "invoker.container.network"
     val invokerContainerPolicy = "invoker.container.policy"
+    val invokerContainerDns = "invoker.container.dns"
     val invokerNumCore = "invoker.numcore"
     val invokerCoreShare = "invoker.coreshare"
     val invokerSerializeDockerOp = "invoker.serializeDockerOp"
     val invokerSerializeDockerPull = "invoker.serializeDockerPull"
     val invokerUseRunc = "invoker.useRunc"
+    val invokerUseReactivePool = "invoker.useReactivePool"
 
     val wskApiProtocol = "whisk.api.host.proto"
     val wskApiPort = "whisk.api.host.port"

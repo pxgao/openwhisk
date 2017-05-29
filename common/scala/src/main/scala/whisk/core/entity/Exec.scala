@@ -17,10 +17,9 @@
 package whisk.core.entity
 
 import java.nio.charset.StandardCharsets
-import java.util.Base64
 
 import scala.language.postfixOps
-import scala.util.Try
+import scala.util.matching.Regex
 
 import spray.json._
 import spray.json.DefaultJsonProtocol._
@@ -57,7 +56,7 @@ sealed abstract class Exec extends ByteSizeable {
  * A common super class for all action exec types that contain their executable
  * code explicitly (i.e., any action other than a sequence).
  */
-sealed abstract class CodeExec[T <% SizeConversion] extends Exec {
+sealed abstract class CodeExec[+T <% SizeConversion] extends Exec {
     /** An entrypoint (typically name of 'main' function). 'None' means a default value will be used. */
     val entryPoint: Option[String]
 
@@ -261,12 +260,12 @@ protected[core] object Exec
         }
     }
 
+    val isBase64Pattern = new Regex("^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)$").pattern
+
     def isBinaryCode(code: String): Boolean = {
         if (code != null) {
             val t = code.trim
-            (t.length > 0) && (t.length % 4 == 0) && Try(b64decoder.decode(t)).isSuccess
+            (t.length > 0) && (t.length % 4 == 0) && isBase64Pattern.matcher(t).matches()
         } else false
     }
-
-    private lazy val b64decoder = Base64.getDecoder()
 }
