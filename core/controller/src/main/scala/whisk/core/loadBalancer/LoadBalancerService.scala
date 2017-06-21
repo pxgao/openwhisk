@@ -284,6 +284,7 @@ class LoadBalancerService(config: WhiskConfig, entityStore: EntityStore)(implici
             if (numInvokers > 0) {
                 val hashCount = math.abs(hash + count / activationCountBeforeNextInvoker)
                 val invokerIndex = hashCount % numInvokers
+                println("----------------------"+invokerIndex)
                 Future.successful(invokers(invokerIndex))
             } else {
                 logging.error(this, s"all invokers down")(TransactionId.invokerHealth)
