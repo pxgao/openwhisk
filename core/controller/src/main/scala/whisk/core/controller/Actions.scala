@@ -59,7 +59,7 @@ object WhiskActionsApi {
     protected[core] val blockingInvokeGrace = 5 seconds
 
     /** Max duration to wait for a blocking activation. */
-    protected[core] val maxWaitForBlockingActivation = 60 seconds
+    protected[core] val maxWaitForBlockingActivation = 600 seconds
 }
 
 /** A trait implementing the actions API. */
