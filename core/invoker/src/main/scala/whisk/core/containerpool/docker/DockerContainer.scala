@@ -85,7 +85,8 @@ object DockerContainer {
             "--cpu-shares", cpuShares.toString,
             "--memory", s"${memory.toMB}m",
             "--memory-swap", s"${memory.toMB}m",
-            "--network", network) ++
+            "--network", network,
+            "-v /dev/shm:/dev/shm") ++
             dnsArgs ++
             environmentArgs ++
             name.map(n => Seq("--name", n)).getOrElse(Seq.empty)

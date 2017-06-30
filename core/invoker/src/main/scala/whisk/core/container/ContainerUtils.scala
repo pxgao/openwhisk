@@ -16,17 +16,17 @@
 
 package whisk.core.container
 
-import java.io.{ File, FileNotFoundException }
+import java.io.{File, FileNotFoundException}
+import java.net._
+
+import akka.event.Logging.ErrorLevel
+import spray.json.DefaultJsonProtocol._
+import spray.json._
+import whisk.common.{Logging, LoggingMarkers, SimpleExec, TransactionId}
+import whisk.core.entity.ActionLimits
 
 import scala.language.postfixOps
 import scala.util.Try
-
-import akka.event.Logging.ErrorLevel
-import spray.json._
-import spray.json.DefaultJsonProtocol._
-import whisk.common.{ Logging, SimpleExec, TransactionId, LoggingMarkers }
-import whisk.common.Logging
-import whisk.core.entity.ActionLimits
 
 /**
  * Information from docker ps.
@@ -273,8 +273,11 @@ object ContainerUtils {
         val start = transid.started(this, LoggingMarkers.INVOKER_DOCKER_CMD(args(0)))
 
         try {
-            val fullCmd = getDockerCmd(dockerhost) ++ args
-
+            val aaa = getDockerCmd(dockerhost)
+            logging.info(this, s"---------- aaa is $aaa")
+            val hostname = InetAddress.getLocalHost.getHostName
+            val fullCmd = aaa ++ args.slice(0, args.size-1) ++ List("-v", "/dev/shm:/dev/shm", "--hostname", hostname+"--"+scala.util.Random.nextInt(100000)) ++ List(args(args.size-1))
+            logging.info(this, s"---------- full cmd is $fullCmd")
             val (stdout, stderr, exitCode) = SimpleExec.syncRunCmd(fullCmd)
 
             if (exitCode == 0) {
@@ -318,6 +321,7 @@ object ContainerUtils {
     @throws[ContainerError]
     def pullImage(dockerhost: String, image: String)(implicit transid: TransactionId, logging: Logging): DockerOutput = {
         val cmd = Array("pull", image)
+        logging.info(this, s"---------pull image cmd : $cmd")
         val result = runDockerCmd(dockerhost, false, cmd)
         if (result != DockerOutput.unavailable) {
             result

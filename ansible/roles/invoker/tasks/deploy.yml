@@ -53,7 +53,6 @@
         -e INVOKER_OPTS={{ invoker.arguments }}
         -v /sys/fs/cgroup:/sys/fs/cgroup
         -v /run/runc:/run/runc
-        -v /dev/shm:/dev/shm
         -v {{whisk_logs_dir}}/invoker{{play_hosts.index(inventory_hostname)}}:/logs
         -v {{dockerInfo["json"]["DockerRootDir"]}}/containers/:/containers
         -v {{ docker_sock | default('/var/run/docker.sock') }}:/var/run/docker.sock
