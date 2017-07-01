@@ -78,6 +78,9 @@ trait LoadBalancer {
 
 class LoadBalancerService(config: WhiskConfig, entityStore: EntityStore)(implicit val actorSystem: ActorSystem, logging: Logging) extends LoadBalancer {
 
+    /** choose invoker using round-robin */
+    private var counter = 0
+
     /** The execution context for futures */
     implicit val executionContext: ExecutionContext = actorSystem.dispatcher
 
@@ -282,8 +285,10 @@ class LoadBalancerService(config: WhiskConfig, entityStore: EntityStore)(implici
         invokers.flatMap { invokers =>
             val numInvokers = invokers.length
             if (numInvokers > 0) {
-                val hashCount = math.abs(hash + count / activationCountBeforeNextInvoker)
-                val invokerIndex = hashCount % numInvokers
+//                val hashCount = math.abs(hash + count / activationCountBeforeNextInvoker)
+//                val invokerIndex = hashCount % numInvokers
+                val invokerIndex = counter
+                counter = (counter+1) % numInvokers
                 logging.info(this, s"-----------chosen invoker number: $invokerIndex----- $activationCountBeforeNextInvoker --- $isBlackbox -----")
                 Future.successful(invokers(invokerIndex))
             } else {
