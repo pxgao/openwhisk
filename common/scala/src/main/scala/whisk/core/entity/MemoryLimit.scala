@@ -42,8 +42,8 @@ protected[entity] class MemoryLimit private (val megabytes: Int) extends AnyVal 
 
 protected[core] object MemoryLimit extends ArgNormalizer[MemoryLimit] {
     protected[core] val MIN_MEMORY = 128 MB
-    protected[core] val MAX_MEMORY = 512 MB
-    protected[core] val STD_MEMORY = 256 MB
+    protected[core] val MAX_MEMORY = 1536 MB
+    protected[core] val STD_MEMORY = 1536 MB
 
     /** Gets TimeLimit with default duration */
     protected[core] def apply(): MemoryLimit = MemoryLimit(STD_MEMORY)

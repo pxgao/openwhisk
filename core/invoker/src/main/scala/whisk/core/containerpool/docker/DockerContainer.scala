@@ -62,7 +62,7 @@ object DockerContainer {
     def create(transid: TransactionId,
                image: String,
                userProvidedImage: Boolean = false,
-               memory: ByteSize = 256.MB,
+               memory: ByteSize = 1536.MB,
                cpuShares: Int = 0,
                environment: Map[String, String] = Map(),
                network: String = "bridge",
