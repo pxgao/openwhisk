@@ -276,7 +276,7 @@ object ContainerUtils {
             val aaa = getDockerCmd(dockerhost)
             logging.info(this, s"---------- aaa is $aaa")
             val hostname = InetAddress.getLocalHost.getHostName
-            val fullCmd = aaa ++ args.slice(0, args.size-1) ++ List("-v", "/dev/shm:/dev/shm", "--hostname", hostname+"--"+scala.util.Random.nextInt(100000)) ++ List(args(args.size-1))
+            val fullCmd = aaa ++ args.slice(0, args.size-1) ++ List("--ulimit", "nofile=65535:65535","--ulimit","msgqueue=100000000:100000000", "--ipc=host", "--hostname", hostname+"--"+scala.util.Random.nextInt(100000)) ++ List(args(args.size-1))
             logging.info(this, s"---------- full cmd is $fullCmd")
             val (stdout, stderr, exitCode) = SimpleExec.syncRunCmd(fullCmd)
 
