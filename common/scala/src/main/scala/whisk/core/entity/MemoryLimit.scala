@@ -29,7 +29,7 @@ import whisk.core.entity.size.SizeInt
 
 /**
  * MemoyLimit encapsulates allowed memory for an action. The limit must be within a
- * permissible range (currently [128MB, 512MB]).
+ * permissible range (currently [128MB, 5120MB]).
  *
  * It is a value type (hence == is .equals, immutable and cannot be assigned null).
  * The constructor is private so that argument requirements are checked and normalized
@@ -42,8 +42,8 @@ protected[entity] class MemoryLimit private (val megabytes: Int) extends AnyVal 
 
 protected[core] object MemoryLimit extends ArgNormalizer[MemoryLimit] {
     protected[core] val MIN_MEMORY = 128 MB
-    protected[core] val MAX_MEMORY = 1536 MB
-    protected[core] val STD_MEMORY = 1536 MB
+    protected[core] val MAX_MEMORY = 5120 MB
+    protected[core] val STD_MEMORY = 5120 MB
 
     /** Gets TimeLimit with default duration */
     protected[core] def apply(): MemoryLimit = MemoryLimit(STD_MEMORY)
