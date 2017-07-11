@@ -24,12 +24,12 @@ db_port: "{{ lookup('ini', 'db_port section=db_creds file={{ playbook_dir }}/db_
 limits:
   actions:
     invokes:
-      perMinute: 60
-      concurrent: 30
-      concurrentInSystem: 5000
+      perMinute: 60000
+      concurrent: 30000
+      concurrentInSystem: 500000
   triggers:
     fires:
-      perMinute: 60
+      perMinute: 60000
 
 # API GW connection configuration
 apigw_auth_user: ""
