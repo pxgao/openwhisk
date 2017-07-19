@@ -820,7 +820,7 @@ object ContainerPool {
         dockerImagePrefix -> "",
         dockerImageTag -> "latest",
         invokerContainerNetwork -> "bridge",
-        invokerNumCore -> "200",
+        invokerNumCore -> "4",
         invokerCoreShare -> "2",
         invokerSerializeDockerOp -> "true",
         invokerSerializeDockerPull -> "true",
