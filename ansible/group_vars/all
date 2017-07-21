@@ -118,8 +118,8 @@ invoker:
   port: 12001
   heap: "{{ invoker_heap | default('2g') }}"
   arguments: "{{ invoker_arguments | default('') }}"
-  numcore: 8
-  coreshare: 2
+  numcore: 4
+  coreshare: 4
   serializeDockerOp: true
   serializeDockerPull: true
   useRunc: false
