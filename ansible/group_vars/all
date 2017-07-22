@@ -119,7 +119,7 @@ invoker:
   heap: "{{ invoker_heap | default('2g') }}"
   arguments: "{{ invoker_arguments | default('') }}"
   numcore: 4
-  coreshare: 4
+  coreshare: 2
   serializeDockerOp: true
   serializeDockerPull: true
   useRunc: false
